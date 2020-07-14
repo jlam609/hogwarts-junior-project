@@ -2,8 +2,7 @@ const { models } = require("../db");
 const { Router } = require("express");
 const { pluralize } = require("inflection");
 const { Students, Classes, Classes_Students, Houses } = models;
-const Sequelize = require("sequelize");
-const { Op } = require("Sequelize");
+const { Op } = require("sequelize");
 const path = require("path");
 
 const apiRouter = Router();
