@@ -190,8 +190,8 @@ apiRouter.get("/api/students/?", async (req, res) => {
         offset,
         where: {
           [Op.or]: [
-            { lastName: { [Op.like]: "%" + filter + "%" } },
-            { firstName: { [Op.like]: "%" + filter + "%" } },
+            { lastName: { [Op.iLike]: "%" + filter + "%" } },
+            { firstName: { [Op.iLike]: "%" + filter + "%" } },
           ],
         },
         order: [["lastName", "ASC"]],
