@@ -1,0 +1,51 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  justify-content: space-evenly;
+}
+.header {
+  background-image: url("https://i.pinimg.com/originals/0a/41/0e/0a410e3a4f03610eed0dbbbcd2f0a3db.png"),
+    linear-gradient(to right, black, gray, silver, gray, black);
+  text-align: center;
+  background-size: contain;
+  background-position: center;
+  height: 100px;
+  background-repeat: no-repeat;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.appBar{
+    margin-bottom: 20px;
+}
+.nav {
+  display:flex;
+  justify-content: space-between;
+  width:100%
+}
+.nav > *{
+    color: white;
+    padding:10px;
+}
+.menuItem {
+    color:white
+}
+.students{
+    list-style-type: none;
+    align-items: left;
+    border: solid black 1px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-evenly;
+}
+.studentClasses{
+    display:flex;
+    flex-direction: column;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    border:solid 1px black;
+}
