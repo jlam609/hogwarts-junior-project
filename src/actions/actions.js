@@ -147,6 +147,10 @@ const setToggle = (toggle) => ({
   type: TYPES.SET_TOGGLE,
   toggle,
 });
+const setHouse = (house) => ({
+    type:TYPES.SET_HOUSE,
+    house
+})
 
 module.exports = {
   getStudents,
@@ -177,4 +181,5 @@ module.exports = {
   getAllClasses,
   getFilter,
   setToggle,
+  setHouse
 };

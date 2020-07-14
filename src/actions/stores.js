@@ -2,7 +2,6 @@ import TYPES from "./types";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import actions from "./actions";
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const studentReducer = (state = [], action) => {
   switch (action.type) {
@@ -46,6 +45,8 @@ const countReducer = (
   state = {
     studentCount: 0,
     classesCount: 0,
+    allStudents:[],
+    allClasses:[]
   },
   action
 ) => {
@@ -87,6 +88,7 @@ const inputReducer = (
     page: 1,
     toggle: false,
     filter: "",
+    house:''
   },
   action
 ) => {
@@ -140,6 +142,11 @@ const inputReducer = (
         ...state,
         filter: action.filter,
       };
+    case TYPES.SET_HOUSE:
+        return{
+            ...state,
+            house:action.house
+        }
 
     case TYPES.CLEAR_INPUT:
       return {

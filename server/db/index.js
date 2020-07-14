@@ -21,7 +21,7 @@ const seedData = async () => {
     {
       name: "HUFFLEPUFF",
       imageURL:
-        "https://static.artfire.com/uploads/mfs/items/f0/c5/large/f0c5f8e10fbc8bf2514b94643ef179206cf787136f3bc5aedadf0115559d5cbb.jpg",
+        "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/original/products/88364/91134/Harry-Potter-Hufflepuff-Crest-Official-wall-mounted-cardboard-cutout-buy-now-at-star__21122.1507640936.jpg?c=2&imbypass=on",
     },
   ];
   const studentsList = [];
@@ -60,11 +60,6 @@ const seedData = async () => {
         "https://i.pinimg.com/originals/4c/e8/13/4ce813d62349e5b0a2752df2672ba4e3.jpg",
     },
     {
-      name: "Flying",
-      imageURL:
-        "https://vignette.wikia.nocookie.net/harrypotter/images/1/1a/Flying_class_in_1991.jpg/revision/latest?cb=20161213051125",
-    },
-    {
       name: "Defense Against The Dark Arts",
       imageURL:
         "https://cdnb.artstation.com/p/assets/images/images/014/854/239/large/michele-di-basilio-screenshot00001.jpg?1545920711",
@@ -72,7 +67,27 @@ const seedData = async () => {
     {
       name: "Spells",
       imageURL:
-        "https://cdnb.artstation.com/p/assets/images/images/014/854/239/large/michele-di-basilio-screenshot00001.jpg?1545920711",
+      'https://blueprint-api-production.s3.amazonaws.com/uploads/story/thumbnail/79096/59c028ac-9679-4c93-91b9-c7f1530bc288.jpg',
+    },
+    {
+      name: "Care of Magical Creatures",
+      imageURL:
+        "https://static1.srcdn.com/wordpress/wp-content/uploads/2018/11/Harry-Potter-Fantastic-Beasts-magical-creatures.jpg",
+    },
+    {
+      name: "Astronomy",
+      imageURL:
+        "https://sociable.co/wp-content/uploads/2019/06/galaxy-telescope-1280x720.jpg",
+    },
+    {
+      name: "Herbology",
+      imageURL:
+        "https://payload.cargocollective.com/1/15/490205/13304828/herbologyrgbtumblr_700.jpg",
+    },
+    {
+      name: "History of Magic",
+      imageURL:
+        "https://kbimages1-a.akamaihd.net/189b4e8c-1b14-448b-9773-59995ce1bc2e/1200/1200/False/the-history-of-magic-5.jpg",
     },
   ];
   const students = await Promise.all(

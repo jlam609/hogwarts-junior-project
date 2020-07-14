@@ -95435,6 +95435,11 @@ const setToggle = toggle => ({
   toggle
 });
 
+const setHouse = house => ({
+  type: TYPES.SET_HOUSE,
+  house
+});
+
 module.exports = {
   getStudents,
   getClasses,
@@ -95463,7 +95468,8 @@ module.exports = {
   getAllStudents,
   getAllClasses,
   getFilter,
-  setToggle
+  setToggle,
+  setHouse
 };
 
 /***/ }),
@@ -95487,7 +95493,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const studentReducer = (state = [], action) => {
   switch (action.type) {
@@ -95540,7 +95545,9 @@ const classStudentsReducer = (state = [], action) => {
 
 const countReducer = (state = {
   studentCount: 0,
-  classesCount: 0
+  classesCount: 0,
+  allStudents: [],
+  allClasses: []
 }, action) => {
   switch (action.type) {
     case _types__WEBPACK_IMPORTED_MODULE_0___default.a.GET_STUDENT_COUNT:
@@ -95579,7 +95586,8 @@ const inputReducer = (state = {
   classs: "",
   page: 1,
   toggle: false,
-  filter: ""
+  filter: "",
+  house: ''
 }, action) => {
   switch (action.type) {
     case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_FIRST_NAME:
@@ -95635,6 +95643,11 @@ const inputReducer = (state = {
     case _types__WEBPACK_IMPORTED_MODULE_0___default.a.GET_FILTER:
       return { ...state,
         filter: action.filter
+      };
+
+    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_HOUSE:
+      return { ...state,
+        house: action.house
       };
 
     case _types__WEBPACK_IMPORTED_MODULE_0___default.a.CLEAR_INPUT:
@@ -95702,7 +95715,8 @@ const TYPES = {
   GET_FILTER: "GET_FILTER",
   SET_TOGGLE: "SET_TOGGLE",
   GET_ALL_STUDENTS: "GET_ALL_STUDENTS",
-  GET_ALL_CLASSES: "GET_ALL_CLASSES"
+  GET_ALL_CLASSES: "GET_ALL_CLASSES",
+  SET_HOUSE: 'SET_HOUSE'
 };
 module.exports = TYPES;
 
@@ -96888,45 +96902,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/actions */ "./src/actions/actions.js");
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_actions_actions__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+
 
 
 
 const Houses = ({
   houses,
-  students
+  allStudents,
+  house,
+  changeHouse
 }) => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     houses.forEach(house => {
-      const studentList = students.filter(student => student.houseId === house.id);
+      const studentList = allStudents.filter(student => student.houseId === house.id);
       house.students = [...studentList];
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Houses"), houses.map(house => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Houses"), houses.map(curHouse => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: house.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, house.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-      src: house.imageURL,
+      key: curHouse.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Card"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, curHouse.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      onClick: e => changeHouse(e, curHouse),
+      variant: "outlined"
+    }, "View More Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), house && house.id === curHouse.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, house.students ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Students"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, house.students.map(student => {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["CardContent"], {
+        key: student.id
+      }, student.firstName, " ", student.lastName);
+    })), ") ") : null) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: curHouse.imageURL,
       width: 200,
       height: 300
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)));
   }));
 };
 
 const mapState = ({
   houses,
-  students
+  count,
+  input
 }) => {
+  const {
+    allStudents
+  } = count;
   houses.forEach(house => {
-    const studentList = students.filter(student => student.houseId === house.id);
+    const studentList = allStudents.filter(student => student.houseId === house.id);
     house.students = [...studentList];
   });
+  const {
+    house
+  } = input;
   return {
     houses,
-    students
+    allStudents,
+    house
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState)(Houses));
+const mapDispatch = dispatch => {
+  const changeHouse = (e, house) => {
+    e.preventDefault();
+    console.log(house);
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["setHouse"])(house));
+  };
+
+  return {
+    changeHouse,
+    dispatch
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(Houses));
 
 /***/ }),
 

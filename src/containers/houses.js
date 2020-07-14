@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import {setHouse} from '../actions/actions'
+import {Button, Card, CardContent} from '@material-ui/core'
 
-const Houses = ({ houses, students }) => {
+const Houses = ({ houses, allStudents, house, changeHouse }) => {
   useEffect(() => {
     houses.forEach((house) => {
-      const studentList = students.filter(
+      const studentList = allStudents.filter(
         (student) => student.houseId === house.id
       );
       house.students = [...studentList];
@@ -13,30 +15,59 @@ const Houses = ({ houses, students }) => {
   return (
     <div>
       <h1>Houses</h1>
-      {houses.map((house) => {
+      {houses.map((curHouse) => {
         return (
-          <div key={house.id}>
-            <h1>{house.name}</h1>
-            <img src={house.imageURL} width={200} height={300}></img>
+          <div key={curHouse.id}>
+            <Card>
+            <h1>{curHouse.name}</h1>
+            <Button onClick = {(e) => changeHouse(e, curHouse)} variant = 'outlined'>View More Information</Button>
+            <br/>
+            {(house && house.id === curHouse.id) ? (
+              <div>
+                {house.students ? 
+                  <div>
+                  <h2>Students</h2>
+                  <div>{house.students.map(student => {
+                  return(<CardContent key ={student.id}>{student.firstName} {student.lastName}</CardContent>)
+                })}</div>) </div> :null}
+              </div>
+            ):null}
+            <img src={curHouse.imageURL} width={200} height={300}></img>
             <hr />
+            </Card>
           </div>
         );
       })}
+
     </div>
   );
 };
 
-const mapState = ({ houses, students }) => {
+const mapState = ({ houses, count, input }) => {
+  const {allStudents} = count
   houses.forEach((house) => {
-    const studentList = students.filter(
+    const studentList = allStudents.filter(
       (student) => student.houseId === house.id
     );
     house.students = [...studentList];
   });
+  const {house} = input
   return {
     houses,
-    students,
+    allStudents,
+    house
   };
 };
+const mapDispatch = (dispatch) => {
+  const changeHouse = (e, house) => {
+    e.preventDefault()
+    console.log(house)
+    dispatch(setHouse(house))
+  }
+  return{
+    changeHouse,
+    dispatch
+  }
+}
 
-export default connect(mapState)(Houses);
+export default connect(mapState, mapDispatch)(Houses);
