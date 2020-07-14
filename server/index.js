@@ -9,13 +9,6 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '../public')))
 app.use(express.static(path.join(__dirname, '../dist')))
 
-apiRouter.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "../../public/index.html"), function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    });
-  });
 app.use('/', apiRouter)
 
 const startServer = () => new Promise((res) => {
