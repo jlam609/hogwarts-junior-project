@@ -95678,7 +95678,7 @@ const reducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
   input: inputReducer,
   count: countReducer
 });
-const store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(reducer, composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
+const store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(reducer, Object(redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
 /***/ }),
