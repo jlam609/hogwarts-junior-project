@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setHouse } from "../actions/actions";
+import { updateInput } from "../actions/actions";
 import { Button, Card, CardContent } from "@material-ui/core";
 
 const Houses = ({ houses, allStudents, house, changeHouse }) => {
@@ -81,7 +81,7 @@ const mapState = ({ houses, count, input }) => {
 const mapDispatch = (dispatch) => {
   const changeHouse = (e, house) => {
     e.preventDefault();
-    dispatch(setHouse(house));
+    dispatch(updateInput('house',house));
   };
   return {
     changeHouse,

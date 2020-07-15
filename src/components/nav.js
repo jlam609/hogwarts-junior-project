@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
-import { setToggle } from "../actions/actions";
+import { updateInput } from "../actions/actions";
 
 const Nav = ({
   studentCount,
@@ -83,7 +83,7 @@ const mapDispatch = (dispatch) => {
   const toggleMenu = (e, toggle) => {
     e.preventDefault();
     toggle = !toggle;
-    dispatch(setToggle(toggle));
+    dispatch(updateInput('toggle', toggle));
   };
   return {
     toggleMenu,

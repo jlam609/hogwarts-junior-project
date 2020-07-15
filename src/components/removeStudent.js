@@ -1,9 +1,8 @@
 import React from "react";
 import {
-  setStudent,
   clearInput,
   fetchClassesStudents,
-  setClass,
+  updateInput
 } from "../actions/actions";
 import { connect } from "react-redux";
 import Axios from "axios";
@@ -84,20 +83,19 @@ const mapState = ({ input, classStudents, count }) => {
 };
 const mapDispatch = (dispatch) => {
   const selectStudent = (e) => {
-    dispatch(setStudent(e.target.value));
+    dispatch(updateInput('student',e.target.value));
   };
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(setClass(""));
+      dispatch(updateInput('classs',""));
     } else {
-      dispatch(setClass(e.target.value));
+      dispatch(updateInput('classs',e.target.value));
       let targetClass = classes.find((elem) => elem.name === e.target.value);
       dispatch(fetchClassesStudents(targetClass.id));
     }
   };
   const removeStudent = async (e, student, classs, students, classes) => {
     e.preventDefault();
-    console.log(student, classs);
     if (student !== "" && classs !== "") {
       let targetStudent = students.find(
         (elem) => `${elem.firstName} ${elem.lastName}` === student
@@ -108,9 +106,8 @@ const mapDispatch = (dispatch) => {
           ...targetStudent,
         })
       ).data.message;
-      console.log(message);
       dispatch(fetchClassesStudents(targetClass.id));
-      dispatch(setStudent(""));
+      dispatch(updateInput('student',""));
     }
   };
   return {

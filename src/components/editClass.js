@@ -2,8 +2,7 @@ import React from "react";
 import {
   clearInput,
   fetchClasses,
-  setClassName,
-  setClassImage,
+  updateInput
 } from "../actions/actions";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -48,10 +47,10 @@ const mapState = ({ input }) => {
 };
 const mapDispatch = (dispatch) => {
   const handleClassName = (e) => {
-    dispatch(setClassName(e.target.value));
+    dispatch(updateInput('className',e.target.value));
   };
   const handleClassImage = (e) => {
-    dispatch(setClassImage(e.target.value));
+    dispatch(updateInput('classImage',e.target.value));
   };
   const editClass = async (e, className, classImage, classs) => {
     e.preventDefault();

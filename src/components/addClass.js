@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import {
-  setClassName,
-  setClassImage,
   clearInput,
   postClasses,
+  updateInput
 } from "../actions/actions";
 import { connect } from "react-redux";
 import { TextField, FormControl, Button } from "@material-ui/core";
@@ -56,11 +55,11 @@ const mapState = ({ input, count }) => {
 const mapDispatch = (dispatch) => {
   const handleClassName = (e) => {
     e.preventDefault;
-    dispatch(setClassName(e.target.value));
+    dispatch(updateInput('className', e.target.value));
   };
   const handleClassImage = (e) => {
     e.preventDefault;
-    dispatch(setClassImage(e.target.value));
+    dispatch(updateInput('classImage', e.target.value));
   };
   const submitClass = (e, className, classImage, count) => {
     e.preventDefault();

@@ -95366,53 +95366,8 @@ const fetchHouses = () => {
   };
 };
 
-const setFirstName = firstName => ({
-  type: TYPES.SET_FIRST_NAME,
-  firstName
-});
-
-const setLastName = lastName => ({
-  type: TYPES.SET_LAST_NAME,
-  lastName
-});
-
-const setEmail = email => ({
-  type: TYPES.SET_EMAIL,
-  email
-});
-
-const setGrade = grade => ({
-  type: TYPES.SET_GRADE,
-  grade
-});
-
-const setStudent = student => ({
-  type: TYPES.SET_STUDENT,
-  student
-});
-
-const setClassName = className => ({
-  type: TYPES.SET_CLASS_NAME,
-  className
-});
-
-const setClassImage = classImage => ({
-  type: TYPES.SET_CLASS_IMAGE,
-  classImage
-});
-
-const setClass = classs => ({
-  type: TYPES.SET_CLASS,
-  classs
-});
-
 const clearInput = () => ({
   type: TYPES.CLEAR_INPUT
-});
-
-const setPage = page => ({
-  type: TYPES.SET_PAGE,
-  page
 });
 
 const getAllStudents = students => ({
@@ -95425,19 +95380,10 @@ const getAllClasses = classes => ({
   classes
 });
 
-const getFilter = filter => ({
-  type: TYPES.GET_FILTER,
-  filter
-});
-
-const setToggle = toggle => ({
-  type: TYPES.SET_TOGGLE,
-  toggle
-});
-
-const setHouse = house => ({
-  type: TYPES.SET_HOUSE,
-  house
+const updateInput = (name, value) => ({
+  type: TYPES.UPDATE_INPUT,
+  name,
+  value
 });
 
 module.exports = {
@@ -95453,23 +95399,12 @@ module.exports = {
   postClasses,
   getClassesStudents,
   fetchClassesStudents,
-  setFirstName,
-  setLastName,
-  setEmail,
-  setGrade,
-  setStudent,
-  setClassName,
-  setClassImage,
-  setClass,
   clearInput,
   postClassesStudents,
   fetchStudentsClasses,
-  setPage,
   getAllStudents,
   getAllClasses,
-  getFilter,
-  setToggle,
-  setHouse
+  updateInput
 };
 
 /***/ }),
@@ -95590,64 +95525,9 @@ const inputReducer = (state = {
   house: ''
 }, action) => {
   switch (action.type) {
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_FIRST_NAME:
+    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.UPDATE_INPUT:
       return { ...state,
-        firstName: action.firstName
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_LAST_NAME:
-      return { ...state,
-        lastName: action.lastName
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_EMAIL:
-      return { ...state,
-        email: action.email
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_GRADE:
-      return { ...state,
-        grade: action.grade
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_STUDENT:
-      return { ...state,
-        student: action.student
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_CLASS_NAME:
-      return { ...state,
-        className: action.className
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_CLASS_IMAGE:
-      return { ...state,
-        classImage: action.classImage
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_CLASS:
-      return { ...state,
-        classs: action.classs
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_PAGE:
-      return { ...state,
-        page: action.page
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_TOGGLE:
-      return { ...state,
-        toggle: action.toggle
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.GET_FILTER:
-      return { ...state,
-        filter: action.filter
-      };
-
-    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.SET_HOUSE:
-      return { ...state,
-        house: action.house
+        [action.name]: action.value
       };
 
     case _types__WEBPACK_IMPORTED_MODULE_0___default.a.CLEAR_INPUT:
@@ -95697,26 +95577,14 @@ const TYPES = {
   ADD_STUDENT: "ADD_STUDENT",
   ADD_CLASS: "ADD_CLASS",
   GET_CLASSES_STUDENTS: "GET_CLASSES_STUDENTS",
-  SET_FIRST_NAME: "SET_FIRST_NAME",
-  SET_LAST_NAME: "SET_LAST_NAME",
-  SET_EMAIL: "SET_EMAIL",
-  SET_GRADE: "SET_GRADE",
-  SET_CLASS: "SET_CLASS",
-  SET_STUDENT: "SET_STUDENT",
-  SET_CLASS_NAME: "SET_CLASS_NAME",
-  SET_CLASS_IMAGE: "SET_CLASS_IMAGE",
-  SET_CLASS: "SET_CLASS",
   CLEAR_INPUT: "CLEAR_INPUT",
   ENROLL_STUDENT: "ENROLL_STUDENT",
   ADD_CLASSES_STUDENTS: "ADD_CLASSES_STUDENTS",
-  SET_PAGE: "SET_PAGE",
   GET_STUDENT_COUNT: "GET_STUDENT_COUNT",
   GET_CLASSES_COUNT: "GET_CLASSES_COUNT",
-  GET_FILTER: "GET_FILTER",
-  SET_TOGGLE: "SET_TOGGLE",
   GET_ALL_STUDENTS: "GET_ALL_STUDENTS",
   GET_ALL_CLASSES: "GET_ALL_CLASSES",
-  SET_HOUSE: 'SET_HOUSE'
+  UPDATE_INPUT: 'UPDATE_INPUT'
 };
 module.exports = TYPES;
 
@@ -95904,12 +95772,12 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleClassName = e => {
     e.preventDefault;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClassName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('className', e.target.value));
   };
 
   const handleClassImage = e => {
     e.preventDefault;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClassImage"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classImage', e.target.value));
   };
 
   const submitClass = (e, className, classImage, count) => {
@@ -96000,7 +95868,8 @@ const AddStudent = ({
     label: "Email"
   }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Select"], {
     value: grade,
-    onChange: handleSelectGrade
+    onChange: handleSelectGrade,
+    label: "grade"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], {
     value: ""
   }, "Select Grade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], {
@@ -96015,8 +95884,9 @@ const AddStudent = ({
     value: "D"
   }, "D"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], {
     value: "T"
-  }, "T")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-    onClick: e => submitStudent(e, firstName, lastName, email, grade, houses, studentCount)
+  }, "T")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Select Grade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    onClick: e => submitStudent(e, firstName, lastName, email, grade, houses, studentCount),
+    variant: "outlined"
   }, "Add Student")));
 };
 
@@ -96047,23 +95917,21 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleFirstName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setFirstName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('firstName', e.target.value));
   };
 
   const handleLastName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setLastName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('lastName', e.target.value));
   };
 
   const handleEmail = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setEmail"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('email', e.target.value));
   };
 
   const handleSelectGrade = e => {
-    if (e.target.value === "Select Grade") {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setGrade"])(""));
-    } else dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setGrade"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('grade', e.target.value));
   };
 
   const submitStudent = (e, firstName, lastName, email, grade, houses, count) => {
@@ -96158,11 +96026,11 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const handleClassName = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClassName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('className', e.target.value));
   };
 
   const handleClassImage = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClassImage"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classImage', e.target.value));
   };
 
   const editClass = async (e, className, classImage, classs) => {
@@ -96218,7 +96086,6 @@ const EditStudent = ({
   email,
   grade,
   student,
-  houses,
   editStudent,
   handleFirstName,
   handleLastName,
@@ -96291,21 +96158,21 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleFirstName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setFirstName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('firstName', e.target.value));
   };
 
   const handleLastName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setLastName"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('lastName', e.target.value));
   };
 
   const handleEmail = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setEmail"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('email', e.target.value));
   };
 
   const handleSelectGrade = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setGrade"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('grade', e.target.value));
   };
 
   const editStudent = async (e, firstName, lastName, email, grade, id) => {
@@ -96417,14 +96284,14 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const selectStudent = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setStudent"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', e.target.value));
   };
 
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClass"])(""));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', ''));
     } else {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClass"])(e.target.value));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', e.target.value));
       let targetClass = classes.find(elem => elem.name === e.target.value);
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
     }
@@ -96559,7 +96426,7 @@ const mapDispatch = dispatch => {
   const toggleMenu = (e, toggle) => {
     e.preventDefault();
     toggle = !toggle;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_6__["setToggle"])(toggle));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_6__["updateInput"])('toggle', toggle));
   };
 
   return {
@@ -96655,14 +96522,14 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const selectStudent = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setStudent"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', e.target.value));
   };
 
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClass"])(""));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', ""));
     } else {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setClass"])(e.target.value));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', e.target.value));
       let targetClass = classes.find(elem => elem.name === e.target.value);
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
     }
@@ -96670,16 +96537,14 @@ const mapDispatch = dispatch => {
 
   const removeStudent = async (e, student, classs, students, classes) => {
     e.preventDefault();
-    console.log(student, classs);
 
     if (student !== "" && classs !== "") {
       let targetStudent = students.find(elem => `${elem.firstName} ${elem.lastName}` === student);
       let targetClass = classes.find(elem => elem.name === classs);
       const message = (await axios__WEBPACK_IMPORTED_MODULE_3___default.a.put(`/api/removeStudent/${targetClass.id}`, { ...targetStudent
       })).data.message;
-      console.log(message);
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["setStudent"])(""));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', ""));
     }
   };
 
@@ -96815,19 +96680,19 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handlePageChange = (e, value) => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setPage"])(value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('page', value));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchClasses"])(value));
   };
 
   const enrollStudent = (e, curClass) => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(curClass.name));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classs', curClass.name));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchClassesStudents"])(curClass.id));
   };
 
   const editClass = (e, curClass) => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(curClass));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClassName"])(curClass.name));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClassImage"])(curClass.imageURL));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classs', curClass));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('className', curClass.name));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classImage', curClass.imageURL));
   };
 
   const deleteClass = async (e, id) => {
@@ -96843,18 +96708,18 @@ const mapDispatch = dispatch => {
 
   const showStudents = (e, curClass) => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(curClass));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classs', curClass));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchClassesStudents"])(curClass.id));
   };
 
   const removeStudent = curClass => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(curClass));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classs', curClass));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchClassesStudents"])(curClass.id));
   };
 
   const closeTab = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(""));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('classs', ""));
   };
 
   return {
@@ -96978,7 +96843,7 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const changeHouse = (e, house) => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["setHouse"])(house));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["updateInput"])('house', house));
   };
 
   return {
@@ -97046,9 +96911,11 @@ const Students = ({
     placeholder: "Search Students",
     size: "medium",
     onChange: changeFilter,
+    onKeyUp: e => searchStudents(e, filter),
     variant: "outlined"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["IconButton"], {
-    onClick: e => searchStudents(e, filter)
+    onClick: e => searchStudents(e, filter),
+    on: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_7___default.a, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_6__["Pagination"], {
     count: Math.ceil(studentCount / 10),
     page: page,
@@ -97118,16 +96985,15 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const editStudent = student => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setStudent"])(student));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setFirstName"])(student.firstName));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setLastName"])(student.lastName));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setEmail"])(student.email));
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setGrade"])(student.grade));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('student', student));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('firstName', student.firstName));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('lastName', student.lastName));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('email', student.email));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('grade', student.grade));
   };
 
   const deleteStudent = async (e, id) => {
     e.preventDefault();
-    console.log(id);
     await axios__WEBPACK_IMPORTED_MODULE_4___default.a.delete(`/api/classes_students/${id}`);
     await axios__WEBPACK_IMPORTED_MODULE_4___default.a.delete(`/api/students/${id}`);
     const {
@@ -97139,24 +97005,24 @@ const mapDispatch = dispatch => {
 
   const handlePageChange = (e, value, filter) => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setPage"])(value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('page', value));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchStudents"])(filter, value));
   };
 
   const handleSetStudent = (student, houses) => {
     const house = houses.find(house => house.id === student.houseId);
     student.house = house;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setStudent"])(student));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('student', student));
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchStudentsClasses"])(student.id));
   };
 
   const closeTab = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setStudent"])(''));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('student', ''));
   };
 
   const changeFilter = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["getFilter"])(e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["updateInput"])('filter', e.target.value));
   };
 
   const searchStudents = (e, filter) => {

@@ -2,17 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  setFirstName,
-  setLastName,
-  setEmail,
-  setGrade,
-  setStudent,
   fetchStudents,
   fetchStudentsClasses,
-  setPage,
-  getFilter,
   getAllStudents,
   clearInput,
+  updateInput,
 } from "../actions/actions";
 import axios from "axios";
 import {
@@ -54,9 +48,10 @@ const Students = ({
           placeholder="Search Students"
           size="medium"
           onChange={changeFilter}
+          onKeyUp = {(e) => searchStudents(e, filter)}
           variant="outlined"
         />
-        <IconButton onClick={(e) => searchStudents(e, filter)}>
+        <IconButton onClick={(e) => searchStudents(e, filter)} on>
           <SearchIcon />
         </IconButton>
       </form>
@@ -172,15 +167,14 @@ const mapState = ({
 };
 const mapDispatch = (dispatch) => {
   const editStudent = (student) => {
-    dispatch(setStudent(student));
-    dispatch(setFirstName(student.firstName));
-    dispatch(setLastName(student.lastName));
-    dispatch(setEmail(student.email));
-    dispatch(setGrade(student.grade));
+    dispatch(updateInput('student',student));
+    dispatch(updateInput('firstName',student.firstName));
+    dispatch(updateInput('lastName',student.lastName));
+    dispatch(updateInput('email',student.email));
+    dispatch(updateInput('grade',student.grade));
   };
   const deleteStudent = async (e, id) => {
     e.preventDefault();
-    console.log(id);
     await axios.delete(`/api/classes_students/${id}`);
     await axios.delete(`/api/students/${id}`);
     const { Students } = (await axios.get("/api/all/students")).data;
@@ -189,21 +183,21 @@ const mapDispatch = (dispatch) => {
   };
   const handlePageChange = (e, value, filter) => {
     e.preventDefault();
-    dispatch(setPage(value));
+    dispatch(updateInput('page',value));
     dispatch(fetchStudents(filter, value));
   };
   const handleSetStudent = (student, houses) => {
     const house = houses.find((house) => house.id === student.houseId);
     student.house = house;
-    dispatch(setStudent(student));
+    dispatch(updateInput('student',student));
     dispatch(fetchStudentsClasses(student.id));
   };
   const closeTab = (e) => {
       e.preventDefault() 
-      dispatch(setStudent(''))
+      dispatch(updateInput('student',''))
   }
   const changeFilter = (e) => {
-    dispatch(getFilter(e.target.value));
+    dispatch(updateInput('filter',e.target.value));
   };
   const searchStudents = (e, filter) => {
     dispatch(fetchStudents(filter));

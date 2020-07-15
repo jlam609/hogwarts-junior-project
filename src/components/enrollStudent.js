@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  setStudent,
   clearInput,
   postClassesStudents,
-  setClass,
   fetchStudentsClasses,
   fetchClassesStudents,
+  updateInput
 } from "../actions/actions";
 import { connect } from "react-redux";
 import {
@@ -93,13 +92,13 @@ const mapState = ({ input, count, classStudents }) => {
 };
 const mapDispatch = (dispatch) => {
   const selectStudent = (e) => {
-    dispatch(setStudent(e.target.value));
+    dispatch(updateInput('student',e.target.value));
   };
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(setClass(""));
+      dispatch(updateInput('classs',''));
     } else {
-      dispatch(setClass(e.target.value));
+      dispatch(updateInput('classs', e.target.value));
       let targetClass = classes.find((elem) => elem.name === e.target.value);
       dispatch(fetchClassesStudents(targetClass.id));
     }

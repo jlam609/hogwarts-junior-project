@@ -2,14 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  setClass,
-  setClassName,
-  setClassImage,
   fetchClasses,
   fetchClassesStudents,
-  setPage,
   clearInput,
   getAllClasses,
+  updateInput
 } from "../actions/actions";
 import axios from "axios";
 import { Card, CardContent, CardActions, Button } from "@material-ui/core";
@@ -148,17 +145,17 @@ const mapState = ({ classes, students, classStudents, count, input }) => {
 const mapDispatch = (dispatch) => {
   const handlePageChange = (e, value) => {
     e.preventDefault();
-    dispatch(setPage(value));
+    dispatch(updateInput('page',value));
     dispatch(fetchClasses(value));
   };
   const enrollStudent = (e, curClass) => {
-    dispatch(setClass(curClass.name));
+    dispatch(updateInput('classs',curClass.name));
     dispatch(fetchClassesStudents(curClass.id));
   };
   const editClass = (e, curClass) => {
-    dispatch(setClass(curClass));
-    dispatch(setClassName(curClass.name));
-    dispatch(setClassImage(curClass.imageURL));
+    dispatch(updateInput('classs',curClass));
+    dispatch(updateInput('className',curClass.name));
+    dispatch(updateInput('classImage',curClass.imageURL));
   };
   const deleteClass = async (e, id) => {
     e.preventDefault();
@@ -170,16 +167,16 @@ const mapDispatch = (dispatch) => {
   };
   const showStudents = (e, curClass) => {
     e.preventDefault();
-    dispatch(setClass(curClass));
+    dispatch(updateInput('classs',curClass));
     dispatch(fetchClassesStudents(curClass.id));
   };
   const removeStudent = (curClass) => {
-    dispatch(setClass(curClass));
+    dispatch(updateInput('classs',curClass));
     dispatch(fetchClassesStudents(curClass.id));
   };
   const closeTab = (e) => {
     e.preventDefault();
-    dispatch(setClass(""));
+    dispatch(updateInput('classs',""));
   };
   return {
     dispatch,

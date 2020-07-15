@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import {
-  setFirstName,
-  setLastName,
-  setEmail,
-  setGrade,
   clearInput,
   postStudents,
+  updateInput
 } from "../actions/actions";
 import { connect } from "react-redux";
 import {
@@ -60,7 +57,7 @@ const AddStudent = ({
           label="Email"
         />{" "}
         <br />
-        <Select value={grade} onChange={handleSelectGrade}>
+        <Select value={grade} onChange={handleSelectGrade} label='grade'>
           <MenuItem value="">Select Grade</MenuItem>
           <MenuItem value="O">O</MenuItem>
           <MenuItem value="E">E</MenuItem>
@@ -69,6 +66,7 @@ const AddStudent = ({
           <MenuItem value="D">D</MenuItem>
           <MenuItem value="T">T</MenuItem>
         </Select>{" "}
+        <label>Select Grade</label>
         <br />
         <Button
           onClick={(e) =>
@@ -82,6 +80,7 @@ const AddStudent = ({
               studentCount
             )
           }
+          variant = 'outlined'
         >
           Add Student
         </Button>
@@ -106,20 +105,18 @@ const mapState = ({ input, houses, count }) => {
 const mapDispatch = (dispatch) => {
   const handleFirstName = (e) => {
     e.preventDefault();
-    dispatch(setFirstName(e.target.value));
+    dispatch(updateInput('firstName', e.target.value));
   };
   const handleLastName = (e) => {
     e.preventDefault();
-    dispatch(setLastName(e.target.value));
+    dispatch(updateInput('lastName',e.target.value));
   };
   const handleEmail = (e) => {
     e.preventDefault();
-    dispatch(setEmail(e.target.value));
+    dispatch(updateInput('email', e.target.value));
   };
   const handleSelectGrade = (e) => {
-    if (e.target.value === "Select Grade") {
-      dispatch(setGrade(""));
-    } else dispatch(setGrade(e.target.value));
+     dispatch(updateInput('grade', e.target.value));
   };
   const submitStudent = (
     e,

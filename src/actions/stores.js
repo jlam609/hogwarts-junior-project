@@ -93,61 +93,11 @@ const inputReducer = (
   action
 ) => {
   switch (action.type) {
-    case TYPES.SET_FIRST_NAME:
-      return {
-        ...state,
-        firstName: action.firstName,
-      };
-    case TYPES.SET_LAST_NAME:
-      return {
-        ...state,
-        lastName: action.lastName,
-      };
-    case TYPES.SET_EMAIL:
-      return {
-        ...state,
-        email: action.email,
-      };
-    case TYPES.SET_GRADE:
-      return {
-        ...state,
-        grade: action.grade,
-      };
-    case TYPES.SET_STUDENT:
-      return {
-        ...state,
-        student: action.student,
-      };
-    case TYPES.SET_CLASS_NAME:
-      return {
-        ...state,
-        className: action.className,
-      };
-    case TYPES.SET_CLASS_IMAGE:
-      return {
-        ...state,
-        classImage: action.classImage,
-      };
-    case TYPES.SET_CLASS:
-      return { ...state, classs: action.classs };
-    case TYPES.SET_PAGE:
-      return { ...state, page: action.page };
-    case TYPES.SET_TOGGLE:
-      return {
-        ...state,
-        toggle: action.toggle,
-      };
-    case TYPES.GET_FILTER:
-      return {
-        ...state,
-        filter: action.filter,
-      };
-    case TYPES.SET_HOUSE:
-        return{
+    case TYPES.UPDATE_INPUT:
+        return {
             ...state,
-            house:action.house
+            [action.name]:action.value
         }
-
     case TYPES.CLEAR_INPUT:
       return {
         ...state,
