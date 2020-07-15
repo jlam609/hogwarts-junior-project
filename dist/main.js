@@ -96733,7 +96733,8 @@ const Classes = ({
   handlePageChange,
   showStudents,
   removeStudent,
-  dispatch
+  dispatch,
+  closeTab
 }) => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["clearInput"])());
@@ -96760,11 +96761,14 @@ const Classes = ({
       variant: "outlined"
     }, "View Students"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "classStudents"
-    }, classs === curClass && classStudents.length ? classStudents.map(student => {
+    }, classs === curClass && classStudents.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+      onClick: e => closeTab(e),
+      variant: "outlined"
+    }, "Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), classStudents.map(student => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: student.id
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, student.firstName, " ", student.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
-    }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    })) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: `/editClass/${curClass.id}`
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
       onClick: e => editClass(e, curClass)
@@ -96848,6 +96852,11 @@ const mapDispatch = dispatch => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchClassesStudents"])(curClass.id));
   };
 
+  const closeTab = e => {
+    e.preventDefault();
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setClass"])(""));
+  };
+
   return {
     dispatch,
     enrollStudent,
@@ -96855,7 +96864,8 @@ const mapDispatch = dispatch => {
     deleteClass,
     handlePageChange,
     showStudents,
-    removeStudent
+    removeStudent,
+    closeTab
   };
 };
 
@@ -96928,11 +96938,14 @@ const Houses = ({
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Card"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, curHouse.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       onClick: e => changeHouse(e, curHouse),
       variant: "outlined"
-    }, "View More Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), house && house.id === curHouse.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, house.students ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Students"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, house.students.map(student => {
+    }, "View More Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), house && house.id === curHouse.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      onClick: e => changeHouse(e, ""),
+      variant: "outlined"
+    }, "Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), house.students ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Students"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, house.students.map(student => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["CardContent"], {
         key: student.id
       }, student.firstName, " ", student.lastName);
-    })), ") ") : null) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    })), " ") : null) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: curHouse.imageURL,
       width: 200,
       height: 300
@@ -96965,7 +96978,6 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const changeHouse = (e, house) => {
     e.preventDefault();
-    console.log(house);
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["setHouse"])(house));
   };
 
@@ -97023,7 +97035,8 @@ const Students = ({
   changeFilter,
   searchStudents,
   filter,
-  dispatch
+  dispatch,
+  closeTab
 }) => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["clearInput"])());
@@ -97054,7 +97067,10 @@ const Students = ({
       variant: "outlined"
     }, "View Data")), student === curStudent ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: student.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Card"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, student.firstName, " ", student.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Email:", student.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Grade:", student.grade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Classes"), classStudents ? classStudents.map(classStudent => {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+      onClick: e => closeTab(e),
+      variant: "outlined"
+    }, "Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Card"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, student.firstName, " ", student.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Email:", student.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Grade:", student.grade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Classes"), classStudents ? classStudents.map(classStudent => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: classStudent.id
       }, classStudent.name);
@@ -97134,6 +97150,11 @@ const mapDispatch = dispatch => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["fetchStudentsClasses"])(student.id));
   };
 
+  const closeTab = e => {
+    e.preventDefault();
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["setStudent"])(''));
+  };
+
   const changeFilter = e => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_3__["getFilter"])(e.target.value));
   };
@@ -97149,7 +97170,8 @@ const mapDispatch = dispatch => {
     handlePageChange,
     handleSetStudent,
     changeFilter,
-    searchStudents
+    searchStudents,
+    closeTab
   };
 };
 

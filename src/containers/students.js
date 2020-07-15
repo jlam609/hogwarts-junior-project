@@ -41,6 +41,7 @@ const Students = ({
   searchStudents,
   filter,
   dispatch,
+  closeTab
 }) => {
   useEffect(() => {
     dispatch(clearInput());
@@ -92,6 +93,14 @@ const Students = ({
                     </CardActions>
                     {student === curStudent ? (
                       <div key={student.id}>
+                        <Button
+                          onClick={(e) => closeTab(e)}
+                          variant="outlined"
+                        >
+                          Close
+                        </Button>
+                        <br/>
+                        <hr/>
                         <Card>
                           <h1>
                             {student.firstName} {student.lastName}
@@ -189,6 +198,10 @@ const mapDispatch = (dispatch) => {
     dispatch(setStudent(student));
     dispatch(fetchStudentsClasses(student.id));
   };
+  const closeTab = (e) => {
+      e.preventDefault() 
+      dispatch(setStudent(''))
+  }
   const changeFilter = (e) => {
     dispatch(getFilter(e.target.value));
   };
@@ -204,6 +217,7 @@ const mapDispatch = (dispatch) => {
     handleSetStudent,
     changeFilter,
     searchStudents,
+    closeTab
   };
 };
 

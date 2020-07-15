@@ -28,6 +28,7 @@ const Classes = ({
   showStudents,
   removeStudent,
   dispatch,
+  closeTab,
 }) => {
   useEffect(() => {
     dispatch(clearInput());
@@ -68,8 +69,17 @@ const Classes = ({
                         View Students
                       </Button>
                       <div className={"classStudents"}>
-                        {classs === curClass && classStudents.length
-                          ? classStudents.map((student) => {
+                        {classs === curClass && classStudents.length ? (
+                          <div>
+                            <Button
+                              onClick={(e) => closeTab(e)}
+                              variant="outlined"
+                            >
+                              Close
+                            </Button>
+                            <br/>
+                            <hr/>
+                            {classStudents.map((student) => {
                               return (
                                 <div key={student.id}>
                                   <li>
@@ -78,8 +88,9 @@ const Classes = ({
                                   <hr />
                                 </div>
                               );
-                            })
-                          : null}
+                            })}
+                          </div>
+                        ) : null}
                       </div>
                       <div>
                         <Link to={`/editClass/${curClass.id}`}>
@@ -166,6 +177,10 @@ const mapDispatch = (dispatch) => {
     dispatch(setClass(curClass));
     dispatch(fetchClassesStudents(curClass.id));
   };
+  const closeTab = (e) => {
+    e.preventDefault();
+    dispatch(setClass(""));
+  };
   return {
     dispatch,
     enrollStudent,
@@ -174,6 +189,7 @@ const mapDispatch = (dispatch) => {
     handlePageChange,
     showStudents,
     removeStudent,
+    closeTab,
   };
 };
 
