@@ -51,7 +51,7 @@ const Students = ({
           onKeyUp = {(e) => searchStudents(e, filter)}
           variant="outlined"
         />
-        <IconButton onClick={(e) => searchStudents(e, filter)} on>
+        <IconButton onClick={(e) => searchStudents(e, filter)}>
           <SearchIcon />
         </IconButton>
       </form>

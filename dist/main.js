@@ -97010,8 +97010,7 @@ const Students = ({
     onKeyUp: e => searchStudents(e, filter),
     variant: "outlined"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["IconButton"], {
-    onClick: e => searchStudents(e, filter),
-    on: true
+    onClick: e => searchStudents(e, filter)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_7___default.a, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_6__["Pagination"], {
     count: Math.ceil(studentCount / 10),
     page: page,
