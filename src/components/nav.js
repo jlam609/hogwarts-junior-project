@@ -12,6 +12,9 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
+import FaceIcon from "@material-ui/icons/Face";
+import SchoolIcon from "@material-ui/icons/School";
+import HouseIcon from "@material-ui/icons/House";
 import { updateInput } from "../actions/actions";
 
 const Nav = ({
@@ -27,18 +30,26 @@ const Nav = ({
       <AppBar position="static" className="appBar">
         <Toolbar>
           <nav className="nav">
-            <Link to="/">
-              <Tab label={"Home"} />
-            </Link>
-            <Link to="/students">
-              <Tab label={`Students (${studentCount})`} />
-            </Link>
-            <Link to="/classes">
-              <Tab label={`Classes (${classesCount})`} />
-            </Link>
-            <Link to="/houses">
-              <Tab label={`Houses (${houses.length})`} />
-            </Link>
+            <IconButton > 
+              <Link to="/">
+                <HomeIcon fontSize="large" />
+              </Link>
+            </IconButton>
+            <IconButton>
+              <Link to="/students">
+                <FaceIcon fontSize="large" />
+              </Link>
+            </IconButton>
+            <IconButton>
+              <Link to="/classes">
+                <SchoolIcon fontSize="large" />
+              </Link>
+            </IconButton>
+            <IconButton>
+              <Link to="/houses">
+                <HouseIcon fontSize="large" />
+              </Link>
+            </IconButton>
 
             <IconButton
               edge="start"
@@ -83,7 +94,7 @@ const mapDispatch = (dispatch) => {
   const toggleMenu = (e, toggle) => {
     e.preventDefault();
     toggle = !toggle;
-    dispatch(updateInput('toggle', toggle));
+    dispatch(updateInput("toggle", toggle));
   };
   return {
     toggleMenu,
