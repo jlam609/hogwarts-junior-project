@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { clearForm, logIn, updateForm } from "../actions/actions";
+import { clearForm, login, updateForm } from "../actions/actions";
 import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import { TextField, FormControl, Button } from "@material-ui/core";

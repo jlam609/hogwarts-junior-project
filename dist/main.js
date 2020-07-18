@@ -95526,9 +95526,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_types__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./src/actions/actions.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_3__);
-
 
 
 
@@ -95926,12 +95923,12 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleClassName = e => {
     e.preventDefault;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('className', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("className", e.target.value));
   };
 
   const handleClassImage = e => {
     e.preventDefault;
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classImage', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classImage", e.target.value));
   };
 
   const submitClass = (e, className, classImage, count) => {
@@ -96071,21 +96068,21 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleFirstName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('firstName', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("firstName", e.target.value));
   };
 
   const handleLastName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('lastName', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("lastName", e.target.value));
   };
 
   const handleEmail = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('email', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("email", e.target.value));
   };
 
   const handleSelectGrade = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('grade', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("grade", e.target.value));
   };
 
   const submitStudent = (e, firstName, lastName, email, grade, houses, count) => {
@@ -96180,11 +96177,11 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const handleClassName = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('className', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("className", e.target.value));
   };
 
   const handleClassImage = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classImage', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classImage", e.target.value));
   };
 
   const editClass = async (e, className, classImage, classs) => {
@@ -96196,6 +96193,10 @@ const mapDispatch = dispatch => {
         imageURL: classImage
       });
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClasses"])());
+      const {
+        Classes
+      } = (await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/all/classes")).data;
+      dispatch(getAllClasses(Classes));
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["clearInput"])());
     }
   };
@@ -96312,21 +96313,21 @@ const mapState = ({
 const mapDispatch = dispatch => {
   const handleFirstName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('firstName', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("firstName", e.target.value));
   };
 
   const handleLastName = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('lastName', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("lastName", e.target.value));
   };
 
   const handleEmail = e => {
     e.preventDefault();
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('email', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("email", e.target.value));
   };
 
   const handleSelectGrade = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('grade', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("grade", e.target.value));
   };
 
   const editStudent = async (e, firstName, lastName, email, grade, id) => {
@@ -96340,6 +96341,10 @@ const mapDispatch = dispatch => {
         grade: grade
       });
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchStudents"])());
+      let {
+        Students
+      } = (await Axios.get("/api/all/students")).data;
+      await dispatch(getAllStudents(Students));
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["clearInput"])());
     }
   };
@@ -96438,14 +96443,14 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const selectStudent = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("student", e.target.value));
   };
 
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', ''));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classs", ""));
     } else {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', e.target.value));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classs", e.target.value));
       let targetClass = classes.find(elem => elem.name === e.target.value);
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
     }
@@ -96918,14 +96923,14 @@ const mapState = ({
 
 const mapDispatch = dispatch => {
   const selectStudent = e => {
-    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', e.target.value));
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("student", e.target.value));
   };
 
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', ""));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classs", ""));
     } else {
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('classs', e.target.value));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("classs", e.target.value));
       let targetClass = classes.find(elem => elem.name === e.target.value);
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
     }
@@ -96940,7 +96945,11 @@ const mapDispatch = dispatch => {
       const message = (await axios__WEBPACK_IMPORTED_MODULE_3___default.a.put(`/api/removeStudent/${targetClass.id}`, { ...targetStudent
       })).data.message;
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["fetchClassesStudents"])(targetClass.id));
-      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])('student', ""));
+      let {
+        Students
+      } = (await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/all/students")).data;
+      await dispatch(getAllStudents(Students));
+      dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateInput"])("student", ""));
     }
   };
 

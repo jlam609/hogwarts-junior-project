@@ -120,6 +120,8 @@ const mapDispatch = (dispatch) => {
         grade: grade,
       });
       dispatch(fetchStudents());
+      let { Students } = (await Axios.get("/api/all/students")).data;
+      await dispatch(getAllStudents(Students));
       dispatch(clearInput());
     }
   };

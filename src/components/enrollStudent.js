@@ -2,13 +2,11 @@ import React from "react";
 import {
   clearInput,
   postClassesStudents,
-  fetchStudentsClasses,
   fetchClassesStudents,
   updateInput,
 } from "../actions/actions";
 import { connect } from "react-redux";
 import {
-  TextField,
   FormControl,
   Button,
   Select,

@@ -1,13 +1,11 @@
 import React from "react";
 import {
-  clearInput,
   fetchClassesStudents,
   updateInput,
 } from "../actions/actions";
 import { connect } from "react-redux";
 import Axios from "axios";
 import {
-  TextField,
   FormControl,
   Button,
   Select,
@@ -107,6 +105,8 @@ const mapDispatch = (dispatch) => {
         })
       ).data.message;
       dispatch(fetchClassesStudents(targetClass.id));
+      let { Students } = (await Axios.get("/api/all/students")).data;
+      await dispatch(getAllStudents(Students));
       dispatch(updateInput("student", ""));
     }
   };

@@ -1,7 +1,7 @@
 import TYPES from "./types";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import actions from "./actions";
+
 
 const studentReducer = (state = [], action) => {
   switch (action.type) {

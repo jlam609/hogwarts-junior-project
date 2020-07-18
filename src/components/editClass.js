@@ -61,6 +61,8 @@ const mapDispatch = (dispatch) => {
         imageURL: classImage,
       });
       dispatch(fetchClasses());
+      const { Classes } = (await axios.get("/api/all/classes")).data;
+      dispatch(getAllClasses(Classes));
       dispatch(clearInput());
     }
   };
