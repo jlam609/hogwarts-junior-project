@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  fetchStudents,
-  clearInput,
-  updateInput
-} from "../actions/actions";
+import { fetchStudents, clearInput, updateInput } from "../actions/actions";
 import { connect } from "react-redux";
 import axios from "axios";
 import {
@@ -91,18 +87,18 @@ const mapState = ({ input, houses }) => {
 const mapDispatch = (dispatch) => {
   const handleFirstName = (e) => {
     e.preventDefault();
-    dispatch(updateInput('firstName',e.target.value));
+    dispatch(updateInput("firstName", e.target.value));
   };
   const handleLastName = (e) => {
     e.preventDefault();
-    dispatch(updateInput('lastName',e.target.value));
+    dispatch(updateInput("lastName", e.target.value));
   };
   const handleEmail = (e) => {
     e.preventDefault();
-    dispatch(updateInput('email', e.target.value));
+    dispatch(updateInput("email", e.target.value));
   };
   const handleSelectGrade = (e) => {
-    dispatch(updateInput('grade', e.target.value));
+    dispatch(updateInput("grade", e.target.value));
   };
   const editStudent = async (e, firstName, lastName, email, grade, id) => {
     e.preventDefault();

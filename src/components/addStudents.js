@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  clearInput,
-  postStudents,
-  updateInput
-} from "../actions/actions";
+import { clearInput, postStudents, updateInput } from "../actions/actions";
 import { connect } from "react-redux";
 import {
   TextField,
@@ -57,7 +53,7 @@ const AddStudent = ({
           label="Email"
         />{" "}
         <br />
-        <Select value={grade} onChange={handleSelectGrade} label='grade'>
+        <Select value={grade} onChange={handleSelectGrade} label="grade">
           <MenuItem value="">Select Grade</MenuItem>
           <MenuItem value="O">O</MenuItem>
           <MenuItem value="E">E</MenuItem>
@@ -80,7 +76,7 @@ const AddStudent = ({
               studentCount
             )
           }
-          variant = 'outlined'
+          variant="outlined"
         >
           Add Student
         </Button>
@@ -105,18 +101,18 @@ const mapState = ({ input, houses, count }) => {
 const mapDispatch = (dispatch) => {
   const handleFirstName = (e) => {
     e.preventDefault();
-    dispatch(updateInput('firstName', e.target.value));
+    dispatch(updateInput("firstName", e.target.value));
   };
   const handleLastName = (e) => {
     e.preventDefault();
-    dispatch(updateInput('lastName',e.target.value));
+    dispatch(updateInput("lastName", e.target.value));
   };
   const handleEmail = (e) => {
     e.preventDefault();
-    dispatch(updateInput('email', e.target.value));
+    dispatch(updateInput("email", e.target.value));
   };
   const handleSelectGrade = (e) => {
-     dispatch(updateInput('grade', e.target.value));
+    dispatch(updateInput("grade", e.target.value));
   };
   const submitStudent = (
     e,

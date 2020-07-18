@@ -4,7 +4,7 @@ import {
   postClassesStudents,
   fetchStudentsClasses,
   fetchClassesStudents,
-  updateInput
+  updateInput,
 } from "../actions/actions";
 import { connect } from "react-redux";
 import {
@@ -92,13 +92,13 @@ const mapState = ({ input, count, classStudents }) => {
 };
 const mapDispatch = (dispatch) => {
   const selectStudent = (e) => {
-    dispatch(updateInput('student',e.target.value));
+    dispatch(updateInput("student", e.target.value));
   };
   const selectClass = (e, classes) => {
     if (e.target.value === "") {
-      dispatch(updateInput('classs',''));
+      dispatch(updateInput("classs", ""));
     } else {
-      dispatch(updateInput('classs', e.target.value));
+      dispatch(updateInput("classs", e.target.value));
       let targetClass = classes.find((elem) => elem.name === e.target.value);
       dispatch(fetchClassesStudents(targetClass.id));
     }

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  clearInput,
-  fetchClasses,
-  updateInput
-} from "../actions/actions";
+import { clearInput, fetchClasses, updateInput } from "../actions/actions";
 import { connect } from "react-redux";
 import axios from "axios";
 import { TextField, FormControl, Button } from "@material-ui/core";
@@ -47,10 +43,10 @@ const mapState = ({ input }) => {
 };
 const mapDispatch = (dispatch) => {
   const handleClassName = (e) => {
-    dispatch(updateInput('className',e.target.value));
+    dispatch(updateInput("className", e.target.value));
   };
   const handleClassImage = (e) => {
-    dispatch(updateInput('classImage',e.target.value));
+    dispatch(updateInput("classImage", e.target.value));
   };
   const editClass = async (e, className, classImage, classs) => {
     e.preventDefault();
