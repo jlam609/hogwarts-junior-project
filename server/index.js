@@ -9,6 +9,7 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const { fetchClasses } = require("../src/actions/actions");
 dotenv.config();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,4 +62,4 @@ const startServer = () =>
     });
   });
 
-seed(true).then(startServer);
+seed(false).then(startServer);
