@@ -109,6 +109,18 @@ const updateInput = (name, value) => ({
     name,
     value
 })
+const updateForm = (name, value) => ({
+	type:TYPES.UPDATE_FORM,
+	name,
+	value
+})
+const login = () => ({
+	type:TYPES.LOG_IN
+})
+const clearForm = () => ( {
+	type:TYPES.CLEAR_FORM
+})
+
 
 module.exports = {
   getStudents,
@@ -128,5 +140,8 @@ module.exports = {
   fetchStudentsClasses,
   getAllStudents,
   getAllClasses,
-  updateInput
+  updateInput,
+  login,
+  clearForm,
+  updateForm
 };

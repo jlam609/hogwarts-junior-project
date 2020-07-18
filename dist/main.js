@@ -95473,6 +95473,20 @@ const updateInput = (name, value) => ({
   value
 });
 
+const updateForm = (name, value) => ({
+  type: TYPES.UPDATE_FORM,
+  name,
+  value
+});
+
+const login = () => ({
+  type: TYPES.LOG_IN
+});
+
+const clearForm = () => ({
+  type: TYPES.CLEAR_FORM
+});
+
 module.exports = {
   getStudents,
   getClasses,
@@ -95491,7 +95505,10 @@ module.exports = {
   fetchStudentsClasses,
   getAllStudents,
   getAllClasses,
-  updateInput
+  updateInput,
+  login,
+  clearForm,
+  updateForm
 };
 
 /***/ }),
@@ -95637,13 +95654,42 @@ const inputReducer = (state = {
   }
 };
 
+const formReducer = (state = {
+  username: '',
+  password: '',
+  loggedIn: false
+}, action) => {
+  switch (action.type) {
+    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.UPDATE_FORM:
+      return { ...state,
+        [action.name]: action.value
+      };
+
+    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.LOG_IN:
+      return { ...state,
+        loggedIn: true
+      };
+
+    case _types__WEBPACK_IMPORTED_MODULE_0___default.a.CLEAR_FORM:
+      return {
+        username: '',
+        password: '',
+        loggedIn: false
+      };
+
+    default:
+      return state;
+  }
+};
+
 const reducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
   students: studentReducer,
   classes: classesReducer,
   houses: houseReducer,
   classStudents: classStudentsReducer,
   input: inputReducer,
-  count: countReducer
+  count: countReducer,
+  form: formReducer
 });
 const store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(reducer, Object(redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -95671,7 +95717,10 @@ const TYPES = {
   GET_CLASSES_COUNT: "GET_CLASSES_COUNT",
   GET_ALL_STUDENTS: "GET_ALL_STUDENTS",
   GET_ALL_CLASSES: "GET_ALL_CLASSES",
-  UPDATE_INPUT: 'UPDATE_INPUT'
+  UPDATE_INPUT: "UPDATE_INPUT",
+  UPDATE_FORM: "UPDATE_FORM",
+  LOG_IN: "LOG_IN",
+  CLEAR_FORM: "CLEAR_FORM"
 };
 module.exports = TYPES;
 
@@ -95703,8 +95752,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_editClass__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/editClass */ "./src/components/editClass.js");
 /* harmony import */ var _components_editStudent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/editStudent */ "./src/components/editStudent.js");
 /* harmony import */ var _components_removeStudent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/removeStudent */ "./src/components/removeStudent.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/login */ "./src/components/login.js");
+/* harmony import */ var _components_register__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/register */ "./src/components/register.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_17__);
+
+
 
 
 
@@ -95733,10 +95786,10 @@ const App = ({
       dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["fetchHouses"])());
       let {
         Classes
-      } = (await axios__WEBPACK_IMPORTED_MODULE_15___default.a.get("/api/all/classes")).data;
+      } = (await axios__WEBPACK_IMPORTED_MODULE_17___default.a.get("/api/all/classes")).data;
       let {
         Students
-      } = (await axios__WEBPACK_IMPORTED_MODULE_15___default.a.get("/api/all/students")).data;
+      } = (await axios__WEBPACK_IMPORTED_MODULE_17___default.a.get("/api/all/students")).data;
       Classes = Classes.sort((a, b) => {
         if (a.name < b.name) return -1;else return 1;
       });
@@ -95745,6 +95798,14 @@ const App = ({
       });
       await dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["getAllClasses"])(Classes));
       await dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["getAllStudents"])(Students));
+      const user = (await axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('/api/login')).data;
+      console.log(user);
+
+      if (user.username && user.password) {
+        dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["updateForm"])('username', user.username));
+        dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["updateForm"])('password', user.password));
+        dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["login"])());
+      }
     };
 
     getData();
@@ -95772,7 +95833,13 @@ const App = ({
     path: "/editStudent/:id"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_editStudent__WEBPACK_IMPORTED_MODULE_13__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/removeStudent/:id"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_removeStudent__WEBPACK_IMPORTED_MODULE_14__["default"], null))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_removeStudent__WEBPACK_IMPORTED_MODULE_14__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/login",
+    component: _components_login__WEBPACK_IMPORTED_MODULE_15__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/register",
+    component: _components_register__WEBPACK_IMPORTED_MODULE_16__["default"]
+  })));
 };
 
 const mapState = state => {
@@ -96414,6 +96481,111 @@ const mapDispatch = dispatch => {
 
 /***/ }),
 
+/***/ "./src/components/login.js":
+/*!*********************************!*\
+  !*** ./src/components/login.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/actions */ "./src/actions/actions.js");
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_actions__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+
+const Login = ({
+  username,
+  password,
+  loggedIn,
+  setUsername,
+  setPassword,
+  logInUser,
+  dispatch
+}) => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["clearForm"])());
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
+    to: "/"
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["FormControl"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["TextField"], {
+    value: username,
+    label: "Username",
+    onChange: setUsername
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["FormControl"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["TextField"], {
+    value: password,
+    label: "Password",
+    onChange: setPassword
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+    variant: "outlined",
+    onClick: e => logInUser(e, username, password)
+  }, "Login")));
+};
+
+const mapState = ({
+  form
+}) => {
+  const {
+    username,
+    password,
+    loggedIn
+  } = form;
+  return {
+    username,
+    password,
+    loggedIn
+  };
+};
+
+const mapDispatch = dispatch => {
+  const setUsername = e => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateForm"])("username", e.target.value));
+  };
+
+  const setPassword = e => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateForm"])("password", e.target.value));
+  };
+
+  const logInUser = (e, username, password) => {
+    e.preventDefault();
+
+    if (username.length && password.length) {
+      axios__WEBPACK_IMPORTED_MODULE_5___default.a.post("/login", {
+        username,
+        password
+      }).then(res => {
+        console.log(res.data.message);
+        dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["login"])());
+      }).catch(e => console.error(e));
+    } else alert("All Fields Must Be Completed");
+  };
+
+  return {
+    setUsername,
+    setPassword,
+    logInUser,
+    dispatch
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(Login));
+
+/***/ }),
+
 /***/ "./src/components/nav.js":
 /*!*******************************!*\
   !*** ./src/components/nav.js ***!
@@ -96440,6 +96612,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_icons_House__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_House__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions/actions */ "./src/actions/actions.js");
 /* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_actions_actions__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_10__);
+
 
 
 
@@ -96452,12 +96627,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Nav = ({
-  studentCount,
-  classesCount,
-  houses,
   handleClose,
   toggle,
-  toggleMenu
+  toggleMenu,
+  loggedIn,
+  logout
 }) => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["AppBar"], {
     position: "static",
@@ -96495,13 +96669,24 @@ const Nav = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/addClass",
     className: "menuItem"
-  }, "Add Class"))) : null))));
+  }, "Add Class")), loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    onClick: e => logout(e),
+    className: "menuItem",
+    variant: "outlined"
+  }, "Logout"), " ")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/login",
+    className: "menuItem"
+  }, "Log In")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["MenuItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/register",
+    className: "menuItem"
+  }, "Register")))) : null))));
 };
 
 const mapState = ({
   count,
   input,
-  houses
+  houses,
+  form
 }) => {
   const {
     toggle
@@ -96510,11 +96695,15 @@ const mapState = ({
     studentCount,
     classesCount
   } = count;
+  const {
+    loggedIn
+  } = form;
   return {
     studentCount,
     classesCount,
     houses,
-    toggle
+    toggle,
+    loggedIn
   };
 };
 
@@ -96525,12 +96714,123 @@ const mapDispatch = dispatch => {
     dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_9__["updateInput"])("toggle", toggle));
   };
 
+  const logout = e => {
+    e.preventDefault();
+    axios__WEBPACK_IMPORTED_MODULE_10___default.a.delete('/api/logout');
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_9__["clearForm"])());
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      to: "/login"
+    });
+  };
+
   return {
-    toggleMenu
+    toggleMenu,
+    logout
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(Nav));
+
+/***/ }),
+
+/***/ "./src/components/register.js":
+/*!************************************!*\
+  !*** ./src/components/register.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/actions */ "./src/actions/actions.js");
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_actions__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+
+
+
+
+
+const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+const Register = ({
+  username,
+  password,
+  loggedIn,
+  setUsername,
+  setPassword,
+  createUser,
+  dispatch
+}) => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["clearForm"])());
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
+    to: "/"
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["FormControl"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["TextField"], {
+    value: username,
+    label: "UserName",
+    onChange: setUsername
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["FormControl"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["TextField"], {
+    value: password,
+    label: "Password",
+    onChange: setPassword
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+    onClick: e => createUser(e, username, password)
+  }, "Create New User")));
+};
+
+const mapState = ({
+  form
+}) => {
+  const {
+    username,
+    password,
+    loggedIn
+  } = form;
+  return {
+    username,
+    password,
+    loggedIn
+  };
+};
+
+const mapDispatch = dispatch => {
+  const setUsername = e => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateForm"])("username", e.target.value));
+  };
+
+  const setPassword = e => {
+    dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["updateForm"])("password", e.target.value));
+  };
+
+  const createUser = (e, username, password) => {
+    if (username.length && password.length) {
+      axios.post("/api/register", {
+        username,
+        password
+      }).then(res => {
+        console.log(res.data.message);
+        dispatch(Object(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["clearForm"])());
+      }).catch(e => console.error(e));
+    }
+  };
+
+  return {
+    setUsername,
+    setPassword,
+    createUser,
+    dispatch
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(Register));
 
 /***/ }),
 

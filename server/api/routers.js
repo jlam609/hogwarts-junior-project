@@ -1,12 +1,13 @@
-const { models } = require("../db");
+const { models, User, Session } = require("../db");
 const { Router } = require("express");
 const { pluralize } = require("inflection");
 const { Students, Classes, Classes_Students, Houses } = models;
-const Sequelize = require('sequelize')
-const { Op } = Sequelize
+const Sequelize = require("sequelize");
+const { Op } = Sequelize;
 const path = require("path");
-
+const passport = require('passport')
 const apiRouter = Router();
+const bcrypt = require('bcrypt')
 
 Object.entries(models).forEach(([name, model]) => {
   apiRouter.get(`/api/all/${pluralize(name)}`, async (req, res) => {
@@ -337,7 +338,65 @@ apiRouter.delete(`/api/classes_students/:id`, async (req, res) => {
     throw new Error(e);
   }
 });
-
+apiRouter.post("/api/register", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (username && password){
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+    await User.create({
+      username:username,
+      password:hash,
+      salt:salt
+    });
+    res.status(202).send({
+      message: `user ${username} successfully created`,
+    });
+  }
+  } catch (e) {
+    res.status(500).send({
+      message: ("error creating user", e),
+    });
+  }
+});
+apiRouter.post('/login', passport.authenticate('local', 
+	{
+		failureRedirect:'/login',
+		failureFlash:'Login failed'
+  }), async function(req, res){; 
+   const userId = req.user.id
+   const usersSession = await Session.findByPk(req.cookies.session_id);
+   await usersSession.setUser(userId);
+	res.send({
+    message:`${req.user.username} found`
+  });
+});
+apiRouter.get('/api/login', (req,res) => {
+  try {
+  if (req.user) {
+    res.send({
+      username:req.user.username,
+      password:req.user.password
+    })
+  }
+  }
+  catch(e){
+    console.error(e)
+  }
+})
+apiRouter.delete('/api/logout', (req,res) => {
+  try{
+    req.logOut()
+    res.clearCookie('session_id')
+    res.status(200).send({
+      message:'successfully deleted'
+    })
+  }
+  catch(e){
+    console.error(e)
+    res.sendStatus(500)
+  }
+})
 apiRouter.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "../../public/index.html"), function (err) {
     if (err) {

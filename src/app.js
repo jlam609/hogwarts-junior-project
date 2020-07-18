@@ -6,6 +6,8 @@ import {
   fetchHouses,
   getAllStudents,
   getAllClasses,
+  updateForm,
+  login
 } from "./actions/actions";
 import { Switch, Route } from "react-router-dom";
 import Nav from "./components/nav";
@@ -19,6 +21,8 @@ import EnrollStudent from "./components/enrollStudent";
 import EditClass from "./components/editClass";
 import EditStudent from "./components/editStudent";
 import RemoveStudent from "./components/removeStudent";
+import Login from './components/login'
+import Register from './components/register'
 import Axios from "axios";
 
 const App = ({ state, dispatch }) => {
@@ -39,6 +43,13 @@ const App = ({ state, dispatch }) => {
       });
       await dispatch(getAllClasses(Classes));
       await dispatch(getAllStudents(Students));
+      const user = (await Axios.get('/api/login')).data
+      console.log(user)
+      if (user.username && user.password){
+        dispatch(updateForm('username', user.username))
+        dispatch(updateForm('password', user.password))
+        dispatch(login())
+      }
     };
     getData();
   }, []);
@@ -77,6 +88,8 @@ const App = ({ state, dispatch }) => {
         <Route path="/removeStudent/:id">
           <RemoveStudent />
         </Route>
+        <Route path='/login' component={Login}/>
+        <Route path='/register' component={Register}/>
       </Switch>
     </div>
   );

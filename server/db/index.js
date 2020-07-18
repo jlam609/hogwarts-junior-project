@@ -1,5 +1,6 @@
-const { db, Classes, Houses, Students, Classes_Students } = require("./models");
+const { db, Classes, Houses, Students, Classes_Students, User, Session } = require("./models");
 const faker = require("faker");
+const bcrpyt = require('bcrypt')
 
 const seedData = async () => {
   const houseList = [
@@ -101,6 +102,13 @@ const seedData = async () => {
     if (i % 27 === 0 && i !== 0) j++;
     else classes[j].addStudents(students[i]);
   }
+  const salt = bcrpyt.genSaltSync(10)
+  const hash = bcrpyt.hashSync('password', salt)
+  const user = await User.create({
+    username:'j@gmail.com',
+    password: hash,
+    salt:salt
+  })
 };
 const seed = async (force = false) => {
   try {
@@ -117,6 +125,8 @@ const seed = async (force = false) => {
 module.exports = {
   db,
   seed,
+  User,
+  Session,
   models: {
     Classes,
     Houses,

@@ -118,6 +118,33 @@ const inputReducer = (
   }
 };
 
+const formReducer = (state = {
+	username:'',
+	password:'',
+	loggedIn:false
+}, action) => {
+	switch (action.type){
+	case TYPES.UPDATE_FORM:
+	return {
+	...state,
+	[action.name]:action.value
+};
+	case TYPES.LOG_IN:
+	return {
+	...state,
+	loggedIn:true
+}
+	case TYPES.CLEAR_FORM:
+	return {
+	username:'',
+	password:'',
+	loggedIn:false
+}
+  default:
+  return state
+}
+}
+
 const reducer = combineReducers({
   students: studentReducer,
   classes: classesReducer,
@@ -125,6 +152,7 @@ const reducer = combineReducers({
   classStudents: classStudentsReducer,
   input: inputReducer,
   count: countReducer,
+  form: formReducer
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

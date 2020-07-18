@@ -1,5 +1,7 @@
 const path = require('path')
-const { builtinModules } = require('module')
+const dotenv = require('dotenv')
+
+dotenv.config
 
 module.exports = {
     entry: path.join(__dirname, '/src/index.js'),
